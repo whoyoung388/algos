@@ -1,3 +1,30 @@
+// 1ms beats 99% DP Solution
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        
+        int maxWord = 0;
+        for (String word : wordDict) {
+            maxWord = Math.max(word.length(), maxWord);
+        }
+        
+        for (int end = 1; end <= s.length(); end++) {
+            for (int start = end - 1; start >= Math.max(0, end-maxWord); start--) {
+                if (dp[start] == false) {
+                    continue;
+                }
+                if (wordDict.contains(s.substring(start, end))) {
+                    dp[end] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+}
+
+
 // 2ms beats 96% DP Solution
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
