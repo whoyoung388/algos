@@ -7,6 +7,33 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+
+// DFS (faster)
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        dfs(res, root, 0);
+        return res;
+    }
+    
+    private void dfs(List<List<Integer>> res, TreeNode root, int level) {
+        if (root == null) {
+            return;
+        }
+        if (level == res.size()) {
+            res.add(new ArrayList<Integer>());
+        }
+        res.get(level).add(root.val);
+        dfs(res, root.left, level + 1);
+        dfs(res, root.right, level + 1);
+    }
+}
+
+// BFS
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new LinkedList<List<Integer>>();
