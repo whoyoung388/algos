@@ -1,3 +1,29 @@
+// DP O(nlogn)
+class Solution:
+    def lengthOfLIS(self, nums):
+        dp = [float('-inf')] + [float('inf')] * len(nums)
+        for num in nums:
+            pnt = self.binarySearch(dp, num)
+            dp[pnt] = num
+        res = 0
+        for i, val in enumerate(dp):
+            if val == float('inf'):
+                break
+            res = i
+        return res
+
+    def binarySearch(self, nums, target):
+        left = 0
+        right = len(nums) - 1
+        while left + 1 < right:
+            middle = (left + right) // 2
+            if nums[middle] < target:
+                left = middle
+            else:
+                right = middle
+        return right
+
+
 // DP O(n^2)
 class Solution:
     def lengthOfLIS(self, nums):
