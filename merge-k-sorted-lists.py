@@ -4,6 +4,26 @@
 #         self.val = x
 #         self.next = None
 
+// priority queue with dummy variable
+import heapq
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        pq = [(n.val, i, n) for i, n in enumerate(lists) if n is not None]
+        heapq.heapify(pq)
+
+        head = curr = ListNode(-1)
+        dummy = len(lists)
+        while pq:
+            _, _, node = heapq.heappop(pq)
+            curr.next = node
+            curr = curr.next
+            if node.next:
+                heapq.heappush(pq, (node.next.val, dummy, node.next))
+                dummy += 1
+
+        return head.next
+
 
 // TLE Solution, Time: O(kN), k = len(lists)
 class Solution:
