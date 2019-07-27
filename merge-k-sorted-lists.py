@@ -4,6 +4,34 @@
 #         self.val = x
 #         self.next = None
 
+
+// TLE Solution, Time: O(kN), k = len(lists)
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        head = curr = ListNode(-1)
+        
+        while any(lists):
+            nodeIndex = self.selectNext(lists)
+            curr.next = ListNode(lists[nodeIndex].val)
+            curr = curr.next
+            lists[nodeIndex] = lists[nodeIndex].next
+        return head.next
+
+    def selectNext(self, lists):
+        select = None
+        for i, node in enumerate(lists):
+            if not node:
+                continue
+            if select == None:
+                select = i
+                continue
+            if node.val < lists[select].val:
+                select = i
+        return select
+
+
+
+
 class PriorityQueue(object):
     def __init__(self, ):
         self.que = [None,]
