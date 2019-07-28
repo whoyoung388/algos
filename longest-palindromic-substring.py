@@ -1,3 +1,27 @@
+# Expand from center
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        lps = ""
+        for i in range(len(s)):
+            ps = self.expandCenter(s, i, i+1)
+            ps2 = self.expandCenter(s, i, i)
+            if len(ps) > len(lps):
+                lps = ps
+            if len(ps2) > len(lps):
+                lps = ps2
+        return lps
+    
+    def expandCenter(self, s, left, right):
+        ps = ""
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            ps = s[left:right+1]
+            left -= 1
+            right += 1
+        return ps
+
+
+
+# DP
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         res = ""
