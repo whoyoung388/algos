@@ -1,3 +1,42 @@
+# Manacher O(n)
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        dummy = '#'
+        newS = dummy
+        for char in s:
+            newS += char + dummy
+        
+        lps = [0] * len(newS)
+        C, R = 0, 0
+        curr_lps = 0
+        curr_c = 0
+        for i in range(1, len(newS)):
+            if i < R:
+                mirror_i = 2*C - i
+                lps[i] = min(R-i, lps[mirror_i])
+            lps[i] = self.expand(newS, i, lps[i])
+            if i + lps[i] > R:
+                C = i
+                R = i + lps[i]
+            if lps[i] > curr_lps:
+                curr_lps = lps[i]
+                curr_c = i
+        res = ""
+        for char in newS[curr_c-curr_lps:curr_c+curr_lps+1]:
+            if char == dummy:
+                continue
+            res += char
+        return res
+        
+
+    def expand(self, s, i, dis) -> int:
+        temp = dis + 1
+        while i - temp >= 0 and i + temp < len(s) and s[i-temp] == s[i+temp]:
+            dis = temp
+            temp += 1
+        return dis
+
+
 # Expand from center
 class Solution:
     def longestPalindrome(self, s: str) -> str:
