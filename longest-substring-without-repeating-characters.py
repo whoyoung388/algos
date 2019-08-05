@@ -1,3 +1,19 @@
+# Optimized
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        window = {}
+        left, right = 0, 0
+        res = 0
+        while right < len(s):
+            char = s[right]
+            if char in window:
+                left = max(window[char] + 1, left)
+            window[char] = right
+            right += 1
+            res = max(res, right - left)
+        return res
+
+# use template from #76
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         window = {}
