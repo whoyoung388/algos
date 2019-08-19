@@ -34,3 +34,14 @@ class Solution:
             
 
         return res
+
+# Brute force (TLE)
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        max_l = 0
+
+        for i in range(len(s)):
+            for j in range(i, len(s)):
+                if j+1-i == len(set(s[i:j+1])):
+                    max_l = max(max_l, j+1-i)
+        return max_l
