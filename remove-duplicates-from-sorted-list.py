@@ -4,6 +4,21 @@
 #         self.val = x
 #         self.next = None
 
+
+# use current & next
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        dummy = ListNode(-1)
+        dummy.next = head
+        
+        while dummy.next:
+            if dummy.val == dummy.next.val:
+                dummy.next = dummy.next.next
+            else:
+                dummy = dummy.next
+        return head
+
+# use previous & current
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         dummy = ListNode(None)
