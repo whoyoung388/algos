@@ -1,3 +1,28 @@
+# DFS
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        if not image or not image[0]:
+            return image
+    
+        if image[sr][sc] == newColor:
+            return image
+    
+        self.dfs(image, sr, sc, image[sr][sc], newColor)
+        return image
+
+    
+    def dfs(self, image, r, c, color, newColor):
+        image[r][c] = newColor
+        for del_r, del_c in [(1,0), (-1,0), (0,1), (0,-1)]:
+            new_r, new_c = del_r + r, del_c + c
+            if self.validDirection(image, new_r, new_c) and image[new_r][new_c] == color:
+                self.dfs(image, new_r, new_c, color, newColor)
+    
+    def validDirection(self, image, r, c):
+        return 0 <= r < len(image) and 0 <= c < len(image[0])
+
+
+# BFS
 from collections import deque
 
 class Solution:
