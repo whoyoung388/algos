@@ -5,6 +5,7 @@
 #         self.left = None
 #         self.right = None
 
+# DFS
 class Solution:
     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
         if not root:
@@ -23,3 +24,25 @@ class Solution:
         if node.val >= L and node.left:
             self.dfs(node.left, L, R, res)
             
+
+# BFS
+from collections import deque
+
+class Solution:
+    def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
+        
+        if not root: return 0
+        
+        queue = deque([root,])
+        total = 0
+        while queue:
+            node = queue.popleft()
+            if L <= node.val <= R:
+                total += node.val
+            
+            if node.val <= R and node.right:
+                queue.append(node.right)
+            if node.val >= L and node.left:
+                queue.append(node.left)
+    
+        return total
