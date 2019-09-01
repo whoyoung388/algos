@@ -1,4 +1,3 @@
-//
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -6,8 +5,33 @@
 #         self.left = None
 #         self.right = None
 
+# DFS
 from collections import deque
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        res = []
+        self.dfs(root, 0, res)
+        return res
 
+    def dfs(self, node, layer, res) -> None:
+        if not node:
+            return
+        
+        if layer == len(res):
+            res.append(deque())
+            
+        if layer % 2 == 1:
+            res[layer].appendleft(node.val)
+        else:
+            res[layer].append(node.val)
+
+        self.dfs(node.left, layer+1, res)
+        self.dfs(node.right, layer+1, res)
+        
+
+
+# BFS
+from collections import deque
 class Solution:
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
@@ -34,7 +58,7 @@ class Solution:
         return res
 
     
-// Reverse layer (I think this is not valid solution)
+# Reverse layer (I think this is not valid solution)
 from collections import deque
 
 class Solution:
