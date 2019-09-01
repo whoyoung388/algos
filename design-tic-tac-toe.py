@@ -1,3 +1,53 @@
+# Space: O(n)
+class TicTacToe:
+
+    def __init__(self, n: int):
+        """
+        Initialize your data structure here.
+        """
+        self.n = n
+        self.diagonal1 = 0
+        self.diagonal2 = 0
+        self.v = [0] * n
+        self.h = [0] * n
+        
+
+    def move(self, row: int, col: int, player: int) -> int:
+        """
+        Player {player} makes a move at ({row}, {col}).
+        @param row The row of the board.
+        @param col The column of the board.
+        @param player The player, can be either 1 or 2.
+        @return The current winning condition, can be either:
+                0: No one wins.
+                1: Player 1 wins.
+                2: Player 2 wins.
+        """
+        if player == 1:
+            inc = +1
+        else:
+            inc = -1
+        
+        if row == col:
+            self.diagonal1 += inc
+            if self.diagonal1 == self.n * inc:
+                return player
+
+        if row + col == self.n - 1:
+            self.diagonal2 += inc
+            if self.diagonal2 == self.n * inc:
+                return player
+
+        self.v[col] += inc
+        if self.v[col] == self.n * inc:
+            return player
+
+        self.h[row] += inc
+        if self.h[row] == self.n * inc:
+            return player
+        return 0
+
+# Space: O(n)
 class TicTacToe:
 
     def __init__(self, n: int):
