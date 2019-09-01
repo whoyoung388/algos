@@ -6,6 +6,30 @@ class Node:
         self.next = next
         self.random = random
 """
+
+# Recursion
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        table = {}
+        return self.dfs(head, table)
+    
+    def dfs(self, node: 'Node', table: dict) -> 'Node':
+        if not node:
+            return
+        
+        if node in table:
+            return table[node]
+        
+        newNode = Node(node.val, None, None)
+        table[node] = newNode
+        
+        
+        newNode.next = self.dfs(node.next, table)
+        newNode.random = self.dfs(node.random, table)
+        return newNode
+
+
+# Iteration
 class Solution:
     def copyRandomList(self, head: 'Node') -> 'Node':
         
